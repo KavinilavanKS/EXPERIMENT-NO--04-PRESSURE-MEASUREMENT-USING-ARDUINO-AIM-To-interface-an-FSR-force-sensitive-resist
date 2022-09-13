@@ -2,7 +2,8 @@
 
 
 ## AIM: 
-To interface an FSR(force sensitive resistor) and measure the force applied, indicate the change in force applied using LEDs.
+To interface an FSR(force sensitive resistor) and scale the output voltage obtained to pressure applied 
+ 
 ### COMPONENTS REQUIRED:
 1.	FSR  (force sensitive resistor)
 2.	1 KΩ resistor 
@@ -46,18 +47,13 @@ The easiest way to measure a resistive sensor is to connect one end to power and
 
 
 
-
-
-
-
-
-
-
 ![image](https://user-images.githubusercontent.com/36288975/163532979-a2a5cb5c-f495-442c-843e-bebb82737a35.png)
 
 
 
 ### FIGURE-03 CIRCUIT DIAGRAM
+
+![Screenshot (50)](https://user-images.githubusercontent.com/75234646/166267986-3650c349-d712-4c6c-a55e-6f0806c65ad3.png)
 
 
 
@@ -75,59 +71,44 @@ The easiest way to measure a resistive sensor is to connect one end to power and
 
 
 ### PROGRAM 
- ~~~
- #define fsrpin A0
-#define led1 2
-#define led2 3
-#define led3 4
-#define led4 5
-#define led5 6
-#define led6 7
+```c 
 
-int fsrreading;
-void setup()  {
-  Serial.begin(9600);
-  
-  pinMode(led1, OUTPUT);
-  pinMode(led2, OUTPUT);
-  pinMode(led3, OUTPUT);
-  pinMode(led4, OUTPUT);
-  pinMode(led5, OUTPUT);
-  pinMode(led6, OUTPUT);
-}
-void loop() {
-  fsrreading = analogRead(fsrpin);
-  Serial.println(fsrreading);
-  if(fsrreading > 150) {
-    digitalWrite(led1,HIGH);
-  }
-  else digitalWrite(led1, LOW);
-  if(fsrreading > 300) {
-    digitalWrite(led2,HIGH);
-  }
-  else digitalWrite(led2, LOW);
-  if(fsrreading > 450) {
-    digitalWrite(led3, HIGH);
-  }
-  else digitalWrite(led3, LOW);
-  if(fsrreading > 600) {
-    digitalWrite(led4, HIGH);
-  }
-  else digitalWrite(led4, LOW);
-  if(fsrreading > 750 ) {
-    digitalWrite(led5, HIGH);
-  }
-  else digitalWrite(led5 ,LOW);
-  if(fsrreading > 900) {
-    digitalWrite(led6, HIGH);
-  }
-  else digitalWrite(led6, LOW);
+int force = 0;
+
+void setup()
+{
+ pinMode(A0, INPUT);
+ pinMode(8, OUTPUT);
+ Serial.begin(9600);
 }
 
- ~~~
- ### OUTPUT
- ![output](./r1.png)
- ![output](./r2.png)
+void loop()
+{
+ force = analogRead(A0);
+ int f = map(force,0,512,0,10);
+ Serial.print("Force = ");
+ Serial.println(f);
+ analogWrite(8,force);
+ delay(1000); 
+ 
+}
 
-### RESULTS : 
-Thus the interfacing using FSR(force sensitive resistor)is simulated in tinkerCAD.
+```
+ 
+
+### TABLE -02 
+
+OUTPUT VOLTAGES AND CHANGE IN RESISTANCES
+
+
+
+
+![WhatsApp Image 2022-05-02 at 10 37 00 PM](https://user-images.githubusercontent.com/75234646/166292651-6e9acf03-7fa8-4355-a298-8eccd9478c0d.jpeg)
+
+
+![4](https://user-images.githubusercontent.com/75234646/166292985-60030f84-c0d4-4396-95bf-cdf9265e94dd.png)
+
+
+
+### RESULTS :
+Arduino uno is interfaced with FSR and output values are indicated on a graph.
