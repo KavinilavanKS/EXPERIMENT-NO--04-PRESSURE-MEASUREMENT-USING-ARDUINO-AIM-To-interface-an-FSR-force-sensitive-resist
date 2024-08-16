@@ -2,7 +2,7 @@
 
 
 ## AIM: 
-To interface an FSR(force sensitive resistor) and scale the output voltage obtained to pressure applied 
+To interface an FSR(force sensitive resistor) and scale the output voltage  obtained to pressure applied 
  
 ### COMPONENTS REQUIRED:
 1.	FSR  (force sensitive resistor)
